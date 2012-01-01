@@ -1,0 +1,102 @@
+.\"
+.\" Copyright © 2012 brian m. carlson
+.\"
+.\" This documentation is free software; you can redistribute it and/or modify
+.\" it under the terms of your choice of:
+.\" * version 2 of the GNU General Public License as published by the Free
+.\"   Software Foundation;
+.\" * version 2.0 of the Apache License as published by the Apache Software
+.\"   Foundation; or
+.\" * version 3.0 of the Creative Commons Attribution-ShareAlike License as
+.\"   published by Creative Commons.
+.\" 
+.\" This documentation is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" relevant licenses for more details.
+.TH GCC 1 2012-01-01 GNU Debian
+.SH NAME
+gcc \- the GNU C Compiler
+.SH SYNOPSIS
+.B gcc
+[\c
+.IR options "]" FILE ...
+.SH DESCRIPTION
+.B gcc
+is the GNU C compiler.  It is used to compile programs written in C or similar
+languages into programs and libraries for execution.
+.P
+While the
+.B gcc
+frontentd can also be used to compile other languages (see the
+.B \-x
+option), using the appropriate frontend is often better as it often includes
+important libraries and options needed for successful compilation.  These
+frontends are
+.B g++
+for C++,
+.B gfortran
+for Fortran,
+.B gobjc
+for Objective-C,
+.B gobjc++
+for Objective-C++, and
+.B gccgo
+for Go.
+.B cpp
+may be used if only the C preprocessor is needed; alternately, the
+.B \-E
+option to an appropriate frontend may be used.
+.SH OPTIONS
+.B gcc
+supports a large number of options.  Most of these options can be used with any
+frontend, but some are specific to a particular language or platform (processor
+architecture or operating system).
+.SS "General Options"
+.TP
+.B \-c
+Invoke only the preprocessor (if appropriate), the compiler, and the assembler.
+The result is an object file for the target platform.
+.TP
+.B \-E
+Invoke only the preprocessor.  The result is preprocessed source.
+.TP
+.BI "\-o " FILE
+Places the output of the compilation processes into
+.IR FILE .
+.TP
+.B \-pipe
+Use pipes instead of temporary files to pass data between compilation stages.
+.TP
+.B \-S
+Invoke only the preprocessor (if appropriate) and the compiler.  The result is
+assembly for the target platform.
+.TP
+.B \-v
+Prints information about the version and configuration of the compiler, and if
+any compilation or preprocessing step occurs, also prints information about the
+compilation process used in those steps.
+.TP
+.BI "\-x " LANGUAGE
+The following files are to be interpreted as being in
+.IR LANGUAGE .
+This continues until another
+.B \-x
+option is given.  If
+.I LANGUAGE
+is
+.BR none ,
+revert to autodetection based on the file's extension.
+Valid values include
+.BR c ,
+.BR c++ ,
+.BR assembler ,
+and
+.BR none .
+.SH EXIT STATUS
+.SH FILES
+.SH "CONFORMING TO"
+.SH NOTES
+.SH BUGS
+.SH "SEE ALSO"
+.\" vim: set ft=groff:
