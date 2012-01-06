@@ -1,4 +1,5 @@
-.\"
+'\"
+.\"-
 .\" Copyright © 2012 brian m. carlson
 .\"
 .\" This documentation is free software; you can redistribute it and/or modify
@@ -9,18 +10,21 @@
 .\"   Foundation; or
 .\" * version 3.0 of the Creative Commons Attribution-ShareAlike License as
 .\"   published by Creative Commons.
-.\" 
+.\"
 .\" This documentation is distributed in the hope that it will be useful,
 .\" but WITHOUT ANY WARRANTY; without even the implied warranty of
 .\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 .\" relevant licenses for more details.
+.\"
+.\" The only reference used here was the output of gcc itself.  No reference was
+.\" made to other documentation during the writing of this manual page.
 .TH GCC 1 2012-01-01 GNU Debian
 .SH NAME
 gcc \- the GNU C Compiler
 .SH SYNOPSIS
 .B gcc
 [\c
-.IR options "]" FILE ...
+.IR options "] " FILE ...
 .SH DESCRIPTION
 .B gcc
 is the GNU C compiler.  It is used to compile programs written in C or similar
@@ -72,19 +76,30 @@ Use pipes instead of temporary files to pass data between compilation stages.
 Invoke only the preprocessor (if appropriate) and the compiler.  The result is
 assembly for the target platform.
 .TP
+.B \-\-save\-temps
+Save the temporary files created during the compilation process.  This is useful
+when filing a bug report.
+.TP
 .B \-v
 Prints information about the version and configuration of the compiler, and if
 any compilation or preprocessing step occurs, also prints information about the
 compilation process used in those steps.
 .TP
+.BI \-Wa, OPTION
+Pass OPTION to the assembler.
+.TP
+.BI \-Wl, OPTION
+Pass OPTION to the linker.
+.TP
+.BI \-Wp, OPTION
+Pass OPTION to the preprocessor.
+.TP
 .BI "\-x " LANGUAGE
-The following files are to be interpreted as being in
-.IR LANGUAGE .
+The following files are to be interpreted as being in LANGUAGE.
 This continues until another
 .B \-x
-option is given.  If
-.I LANGUAGE
-is
+option is given.
+If LANGUAGE is
 .BR none ,
 revert to autodetection based on the file's extension.
 Valid values include
@@ -93,10 +108,183 @@ Valid values include
 .BR assembler ,
 and
 .BR none .
+.SS "Options for C-like Languages"
+.TP
+.B \-ansi
+Equivalent to
+.B \-std=c89
+for C and
+.B \-std=c++98
+for C++.
+.TP
+.BR \-std =\fISTANDARD\fP
+Specify that the input conforms and the compiler should conform to STANDARD.
+For C, this can be
+.BR c89 ,
+.BR c90 ,
+or
+.BR iso9899:1990
+(for the ISO 1990 C standard);
+.BR iso9899:199409
+(for the ISO 1990 C standard as amended in 1994);
+.BR c99 ,
+.BR c9x ,
+.BR iso9899:1999 ,
+or
+.BR iso9899:199x
+(for the ISO 1999 C standard);
+.B c1x
+or
+.B c11
+(for the ISO 2011 C standard);
+or one of
+.BR gnu89 ,
+.BR gnu90 ,
+.BR gnu99 ,
+.BR gnu9x ,
+.BR gnu1x ,
+or
+.B gnu11
+for the corresponding standard with GNU extensions.
+For C++, this can be
+.BR c++98 ,
+or
+.BR c++03
+(for the ISO 1998 C++ standard as amended in 2003);
+.BR c++0x
+(for the ISO 2011 C++ standard);
+or one of
+.BR gnu++98
+or
+.BR gnu++0x
+for the corresponding standard with GNU extensions.
+.SS "Warning Options"
+.PP
+All the options beginning with
+.B \-W
+can take a negative form by using
+.B \-Wno\-
+instead.  If multiple arguments modify the same warning, the last modification
+wins.
+.TP
+.B \-pedantic
+Warn whenever the appropriate standard requires a diagnostic.
+.TP
+.B \-pedantic\-errors
+Signal an error whenever the appropriate standard requires a diagnostic.
+.TP
+.B \-Wall
+Enable most warnings.
+.TP
+.B \-Werror
+Treat all warnings as errors.
+.SS "Options to Control Code Generation and Optimization"
+.TP
+.BR \-ffunction\-sections
+Place each function in its own section.  This may be needed on certain
+architectures that have branch instructions that have a limited distance.
+.TP
+.BR \-flto
+When compiling, generate an intermediate representation as well as normal code.
+When linking, use this intermediate representation to optimize across files.
+In order to work, this option must be given both when compiling and linking.
+.TP
+.BR \-fomit\-frame\-pointer
+Omit the frame pointer.  On some architectures, the register normally used for
+the frame pointer can be pressed into use, which may allow the compiler to
+generate code.  On other architectures, the frame pointer is part of the
+standard calling sequence and omitting it is not useful.  Using this option may
+impede debugging on some architectures.
+.TP
+.BR \-fPIC
+Generate position-independent code.  This is generally required for shared
+libraries to function correctly.  On some platforms, all code is
+position-independent and this option has no effect.  Using it anyway will
+produce a warning.
+.TP
+.BR \-fPIE
+Generate position-independent code suitable only for executables.  The resulting
+code cannot be linked into a shared library, but is still useful to generate
+binaries that will work with ASLR (address space layout randomization).  On some
+platforms, all code is position-independent and this option has no effect.
+Using it anyway will produce a warning.
+.TP
+.BR \-fstack\-protector
+Generate code to check for stack overflows in most functions.
+.TP
+.BR \-fstack\-protector\-all
+Generate code to check for stack overflows in all functions, no matter how
+small.
+.TP
+.BR \-fwhole\-program
+This option tells the compiler to try to optimize the program as a whole.  This
+only works when all the source files are passed on the command line.
+.TP
+.BR \-fwrapv
+Signed overflow is undefined.  This option makes the compiler assume that signed
+overflow wraps around.  The use of this option may enable certain optimizations
+and disable others as a result of this assumption.
+.TP
+.BR \-g
+Generate debugging information in the default format for this platform.
+Enabling optimization may cause the debugging information to appear strange.
+.TP
+.BI \-O NUMBER
+If NUMBER is 0, do not optimize the code at all.  Otherwise, if NUMBER is
+positive, optimize the code.  NUMBER may be as large as 3, each value taking
+progressively more time and memory to optimize.
+.TP
+.B \-Ofast
+Optimize the code aggressively without regard for standards compliance.
+.TP
+.B \-Os
+Optimize the code for size, not speed.
+.TP
+.B \-shared
+Generate a shared library.  Generally this will be used with
+.BR \-fPIC .
+.SS "Options to Control Code Syntax"
+.TP
+.B \-fpermissive
+Be more lenient in accepting invalid code.  Since
+.B gcc
+tends to become stricter over time, especially with regard to C++ conformance,
+this option can be used to allow older code to compile temporarily.
+.TP
+.B \-fsigned\-char
+.TP
+.B \-funsigned\-char
+The
+.B char
+type, while distinct from
+.B "signed char"
+and
+.BR "unsigned char" ,
+has the range of values of either the former or the latter.  Which one
+specifically is dependent on the architecture and platform, and is usually
+specified in the appropriate ABI.  This option allows the default to be changed
+for a given file or files.
 .SH EXIT STATUS
-.SH FILES
+Exits 0 on success, or nonzero on error.
+.\".SH FILES
 .SH "CONFORMING TO"
-.SH NOTES
+.B gcc
+attempts conforms to the relevant standards when an appropriate
+.B -std
+option is specified with
+.BR -pedantic .
+If it does not, please file a bug.
+.\".SH NOTES
 .SH BUGS
-.SH "SEE ALSO"
+When reporting bugs, please follow the directions listed in
+.IR /usr/share/doc/gcc/README.Bugs .
+Without providing sufficient information, your bug will not be able to be
+reproduced or investigated and therefore will not be able to be fixed.
+.PP
+This manual page was written because the manual pages provided with
+.B gcc
+are not Free Software according to the Debian Free Software Guidelines.  As
+such, you should not bother the Free Software Foundation with it.  Please report
+bugs in this manual page to brian m. carlson <sandals@crustytoothpaste.net>.
+.\".SH "SEE ALSO"
 .\" vim: set ft=groff:
