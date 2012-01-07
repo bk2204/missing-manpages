@@ -1,5 +1,5 @@
 missing-manpages (1-1) unstable; urgency=low
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Initial release (Closes: #655010)
 
  -- brian m. carlson <sandals@crustytoothpaste.net>  Sat, 07 Jan 2012 20:11:50 +0000
