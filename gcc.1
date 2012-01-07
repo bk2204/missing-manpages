@@ -176,8 +176,67 @@ Signal an error whenever the appropriate standard requires a diagnostic.
 .B \-Wall
 Enable most warnings.
 .TP
+.B \-Warray\-bounds
+Warn when the compiler detects an out-of-bounds array access.
+Enable most warnings.
+.TP
+.B \-Wcast\-align
+Warn when a pointer is cast to a type that requires increased alignment.  For
+example, warn when a
+.B "char *"
+is cast to an
+.BR "int *" .
+This warning has no effect on architectures which do not require data to be
+aligned.
+.TP
 .B \-Werror
 Treat all warnings as errors.
+.TP
+.BR \-Werror =\fINAME\fP
+Treat warning NAME as an error.
+.TP
+.B \-Wextra
+Enable additional warnings that
+.B \-Wall
+does not.  While
+.B \-Wall
+selects warnings that are less likely to produce false positives,
+.B \-Wextra
+enables additional warnings that some people may find excessive or too likely
+to have false positives.
+.TP
+.B \-Wparentheses
+Warn about constructs which might need parentheses, such as for operator
+precedence reasons.
+.TP
+.B \-Wshadow
+Warn if one variable declaration shadows (that is, uses the same name as)
+another.
+.TP
+.B \-Wtype\-limits
+Warn if an comparison is always true or always false because of the limits or
+signedness of the type.
+.TP
+.B \-Wuninitialized
+Warn if a variable may be used uninitialized.
+.TP
+.B \-Wunused\-but\-set\-parameter
+Warn if a parameter is set but is otherwise unused.
+.TP
+.B \-Wunused\-but\-set\-variable
+Warn if a variable is set but is otherwise unused.
+.TP
+.B \-Wunused\-function
+Warn if a function is unused.
+.TP
+.B \-Wunused\-parameter
+Warn if a parameter to a function is unused.
+.TP
+.B \-Wunused\-value
+Warn if the value of an expression is unused and has no side effects.
+.TP
+.B \-Wunused\-variable
+Warn if a variable is unused.
 .SS "Options to Control Code Generation and Optimization"
 .TP
 .BR \-ffunction\-sections
