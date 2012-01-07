@@ -1,0 +1,16 @@
+Source: missing-manpages
+Section: doc
+Priority: optional
+Maintainer: brian m. carlson <sandals@crustytoothpaste.net>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Vcs-Git: git://github.com/bk2204/missing-manpages.git
+
+Package: gcc-manpages
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: manual pages for the GNU Compiler Collection
+ This package contains manual pages for the GNU Compiler Collection.  The
+ upstream manual pages cannot be included in main for license reasons, so
+ these (incomplete) manual pages have been written from scratch to
+ replace them.
