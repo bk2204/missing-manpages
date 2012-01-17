@@ -189,6 +189,11 @@ is cast to an
 This warning has no effect on architectures which do not require data to be
 aligned.
 .TP
+.B \-Wdeprecated
+Warn if a function marked with a
+.I deprecated
+attribute is used.
+.TP
 .B \-Werror
 Treat all warnings as errors.
 .TP
@@ -203,15 +208,55 @@ does not.  While
 selects warnings that are less likely to produce false positives,
 .B \-Wextra
 enables additional warnings that some people may find excessive or too likely
-to have false positives.
+to have false positives.  This switch was formerly called
+.BR \-W ;
+that name is still permitted for backwards compatibility.
+.TP
+.B \-Winline
+Warn if a function marked
+.I inline
+cannot be inlined.
+.TP
+.B \-Woverflow
+Warn if an arithmetic expression might overflow.
+.TP
+.B \-Wpacked
+Warn if the
+.I packed
+attribute has no effect on the layout of the structure in question.
 .TP
 .B \-Wparentheses
 Warn about constructs which might need parentheses, such as for operator
 precedence reasons.
 .TP
+.B \-Wstack\-protector
+Warn if the stack protector will not be used for a given function.
+.TP
+.BR \-Wstrict\-aliasing [=\fILEVEL\fP]
+Warn if the code may violate strict aliasing rules.  Larger values of LEVEL may
+be used to catch more potential violations at the cost of more false positives.
+.TP
+.BR \-Wstrict\-overflow [=\fILEVEL\fP]
+Warn if the optimizations in use assume that signed overflow is undefined.
+Larger values of LEVEL may be used to catch more potential problems at the
+cost of more false positives.
+.TP
 .B \-Wshadow
 Warn if one variable declaration shadows (that is, uses the same name as)
 another.
+.TP
+.B \-Wswitch
+Warn if a switch on an enum is missing a case and there is not a default.
+.TP
+.B \-Wswitch\-default
+Warn if a switch on an enum is missing a default.
+.TP
+.B \-Wswitch\-enum
+Warn if a switch on an enum is missing a case.
+.TP
+.B \-Wtrampolines
+Warn if a trampoline will be generated.  This is usually only the case for
+nested functions.
 .TP
 .B \-Wtype\-limits
 Warn if an comparison is always true or always false because of the limits or
