@@ -176,8 +176,112 @@ Signal an error whenever the appropriate standard requires a diagnostic.
 .B \-Wall
 Enable most warnings.
 .TP
+.B \-Warray\-bounds
+Warn when the compiler detects an out-of-bounds array access.
+Enable most warnings.
+.TP
+.B \-Wcast\-align
+Warn when a pointer is cast to a type that requires increased alignment.  For
+example, warn when a
+.B "char *"
+is cast to an
+.BR "int *" .
+This warning has no effect on architectures which do not require data to be
+aligned.
+.TP
+.B \-Wdeprecated
+Warn if a function marked with a
+.I deprecated
+attribute is used.
+.TP
 .B \-Werror
 Treat all warnings as errors.
+.TP
+.BR \-Werror =\fINAME\fP
+Treat warning NAME as an error.
+.TP
+.B \-Wextra
+Enable additional warnings that
+.B \-Wall
+does not.  While
+.B \-Wall
+selects warnings that are less likely to produce false positives,
+.B \-Wextra
+enables additional warnings that some people may find excessive or too likely
+to have false positives.  This switch was formerly called
+.BR \-W ;
+that name is still permitted for backwards compatibility.
+.TP
+.B \-Winline
+Warn if a function marked
+.I inline
+cannot be inlined.
+.TP
+.B \-Woverflow
+Warn if an arithmetic expression might overflow.
+.TP
+.B \-Wpacked
+Warn if the
+.I packed
+attribute has no effect on the layout of the structure in question.
+.TP
+.B \-Wparentheses
+Warn about constructs which might need parentheses, such as for operator
+precedence reasons.
+.TP
+.B \-Wstack\-protector
+Warn if the stack protector will not be used for a given function.
+.TP
+.BR \-Wstrict\-aliasing [=\fILEVEL\fP]
+Warn if the code may violate strict aliasing rules.  Larger values of LEVEL may
+be used to catch more potential violations at the cost of more false positives.
+.TP
+.BR \-Wstrict\-overflow [=\fILEVEL\fP]
+Warn if the optimizations in use assume that signed overflow is undefined.
+Larger values of LEVEL may be used to catch more potential problems at the
+cost of more false positives.
+.TP
+.B \-Wshadow
+Warn if one variable declaration shadows (that is, uses the same name as)
+another.
+.TP
+.B \-Wswitch
+Warn if a switch on an enum is missing a case and there is not a default.
+.TP
+.B \-Wswitch\-default
+Warn if a switch on an enum is missing a default.
+.TP
+.B \-Wswitch\-enum
+Warn if a switch on an enum is missing a case.
+.TP
+.B \-Wtrampolines
+Warn if a trampoline will be generated.  This is usually only the case for
+nested functions.
+.TP
+.B \-Wtype\-limits
+Warn if an comparison is always true or always false because of the limits or
+signedness of the type.
+.TP
+.B \-Wuninitialized
+Warn if a variable may be used uninitialized.
+.TP
+.B \-Wunused\-but\-set\-parameter
+Warn if a parameter is set but is otherwise unused.
+.TP
+.B \-Wunused\-but\-set\-variable
+Warn if a variable is set but is otherwise unused.
+.TP
+.B \-Wunused\-function
+Warn if a function is unused.
+.TP
+.B \-Wunused\-parameter
+Warn if a parameter to a function is unused.
+.TP
+.B \-Wunused\-value
+Warn if the value of an expression is unused and has no side effects.
+.TP
+.B \-Wunused\-variable
+Warn if a variable is unused.
 .SS "Options to Control Code Generation and Optimization"
 .TP
 .BR \-ffunction\-sections
@@ -264,6 +368,117 @@ has the range of values of either the former or the latter.  Which one
 specifically is dependent on the architecture and platform, and is usually
 specified in the appropriate ABI.  This option allows the default to be changed
 for a given file or files.
+.SS "Options for alpha Systems"
+.TP
+.B \-mieee
+Enable IEEE floating-point support.
+.SS "Options for i386 and amd64 Systems"
+.TP
+.B \-m32
+.TP
+.B \-m64
+Generate code for a 32-bit (i386) or 64-bit (amd64) system.  Code compiled with
+different values for this option cannot be combined.
+.TP
+.BR \-march =\fIARCH\fP
+Generate code that will run on ARCH.  Because this affects the set of
+instructions generated, the generated code will only run on systems supporting
+all of the instructions provided by ARCH.  This may be one of the following:
+.BR i386 ,
+.BR i486 ,
+.BR i586
+or
+.BR pentium ,
+.BR i686
+or
+.BR pentiumpro ,
+.BR pentiumii ,
+.BR pentiumiii ,
+.BR pentium4 ,
+.BR prescott ,
+.BR nocona ,
+.BR core ,
+.BR core2 ,
+.BR corei7 ,
+.BR l1om ,
+.BR k1om ,
+.BR k6 ,
+.BR k6_2 ,
+.BR athlon ,
+.BR opteron ,
+.BR k8 ,
+.BR amdfam10 ,
+.BR bdver1 ,
+or
+.BR bdver2 .
+Please note that the values starting with the letter
+.I i
+are for the Intel versions of those processors.  Thus a system that meets the
+architectural requirements to be an i686 but does not contain a cmov instruction
+(such as some VIA chips)
+will not be able to run code compiled with
+.BR \-march=i686 .
+.TP
+.BR \-masm =\fIFORM\fP
+Specify the syntax form for the generated assembly.  FORM may be either
+.I att
+for the default AT&T syntax or
+.I intel
+for Intel syntax.
+.TP
+.B \-mcld
+Enable the generation of cld (clear direction flag) instructions in the function
+prologue.  The ABI requires that the direction flag already be cleared upon
+entering a function.  However, some operating systems have a bug where they do
+not clear the direction flag when calling signal handlers, so this option is
+provided to work around that bug.
+.TP
+.B \-mmmx
+.TP
+.B \-msse
+.TP
+.B \-msse2
+.TP
+.B \-msse3
+.TP
+.B \-mssse3
+.TP
+.B \-msse4.1
+.TP
+.B \-msse4.2
+.TP
+.B \-msse4
+.TP
+.B \-mavx
+Generate code supporting the given instruction set (and all others listed
+previously) and support built-in functions for those instruction sets.
+.B \-msse4
+is equivalent to
+.BR "\-msse4.1 \-msse4.2" .
+Additionally, if
+.B \-mavx
+is used, the AVX encoding of these instructions is used instead of the normal
+MMX or SSE encoding.  Finally, when compiling for a 64-bit system,
+.B \-msse2
+is implicit because the ABI requires it for floating-point support.
+.TP
+.B \-mno\-red\-zone
+The amd64 ABI requires a 128-byte red zone that is left untouched by signal
+handlers and exceptions.  Using this option disables that red zone.
+.TP
+.B \-mpc32
+.TP
+.B \-mpc64
+.TP
+.B \-mpc80
+Set the precision of the 80387 to 32 bits (float), 64 bits (double), or 80 bits
+(long double).  The default setting depends on the operating system.
+.TP
+.BR \-mtune =\fIARCH\fP
+Tune the generated code to run optimally on ARCH.  This does not affect the set
+of instructions generated (cf.
+.BR \-march )
+but does affect such things as instruction scheduling.
 .SH EXIT STATUS
 Exits 0 on success, or nonzero on error.
 .\".SH FILES

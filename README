@@ -1,0 +1,10 @@
+This package is designed to provide manpages that are missing from Debian
+packages either because no such manpages exist or because the existing manpages
+are not free according to the Debian Free Software Guidelines.
+
+You may simply copy the manpages into the appropriate directory.  No build
+process is necessary.
+
+The manpages are licensed under your choice of the Apache License version 2.0,
+the GNU General Public License version 2, or the Creative Commons
+Attribution-ShareAlike License version 3.0.
