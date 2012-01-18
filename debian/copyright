@@ -6,8 +6,6 @@ Files: *
 Copyright: 2012 brian m. carlson <sandals@crustytoothpaste.net>
 License: GPL-2 or Apache-2.0 or CC-BY-SA-3.0
 
-# If you want to use GPL v2 or later for the /debian/* files use 
-# the following clauses, or change it to suit. Delete these two lines
 Files: debian/*
 Copyright: 2012 brian m. carlson <sandals@crustytoothpaste.net>
 License: GPL-2 or Apache-2.0
