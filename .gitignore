@@ -1,0 +1,4 @@
+debian/files
+debian/*-manpages/*
+debian/*-manpages.substvars
+debian/*-manpages.debhelper.log
