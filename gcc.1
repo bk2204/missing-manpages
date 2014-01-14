@@ -439,6 +439,17 @@ code necessary to precisely pinpoint and handle floating-point exceptions.
 Generate code for a 32-bit (i386) or 64-bit (amd64) system.  Code compiled with
 different values for this option cannot be combined.
 .TP
+.B \-m96\-bit\-long\-double
+.TP
+.B \-m128\-bit\-long\-double
+Make the size of a
+.BR "long double"
+be either 96 bits (12 bytes) or 128 bits (16 bytes).  The precision is not
+increased; the 128-bit size merely provides additional padding for alignment
+purposes.  The ABI for i386 systems specifies the former and the ABI for amd64
+systems specifies the latter.  Code compiled with different values for this
+option cannot be combined.
+.TP
 .BR \-march =\fIARCH\fP
 Generate code that will run on ARCH.  Because this affects the set of
 instructions generated, the generated code will only run on systems supporting
@@ -491,6 +502,9 @@ prologue.  The ABI requires that the direction flag already be cleared upon
 entering a function.  However, some operating systems have a bug where they do
 not clear the direction flag when calling signal handlers, so this option is
 provided to work around that bug.
+.TP
+.B \-mieee-fp
+Use IEEE math for floating-point comparisons.
 .TP
 .B \-mmmx
 .TP
