@@ -189,10 +189,30 @@ is cast to an
 This warning has no effect on architectures which do not require data to be
 aligned.
 .TP
+.B \-Wconversion\-null
+Warn when attempting to convert NULL to or from a non-pointer type.  This is
+usually a mistake.
+.TP
 .B \-Wdeprecated
 Warn if a function marked with a
 .I deprecated
 attribute is used.
+.TP
+.B \-Wdiv-by-zero
+Warn if an attempt is made to divide by integer zero at compile time.
+Floating-point zero is not warned about, as it may be a legitimate attempt to
+create infinities or not-a-number (NaN) values.  This does not catch runtime
+division by zero.
+.TP
+.B \-Wdouble-promotion
+Warn if operands of type
+.BR float
+are implicitly convert to
+.BR double .
+.TP
+.B \-Wendif-labels
+Warn if there are extra tokens after an #else or #endif, as they take no
+arguments.  Comments do not trigger the warning.
 .TP
 .B \-Werror
 Treat all warnings as errors.
@@ -211,6 +231,44 @@ enables additional warnings that some people may find excessive or too likely
 to have false positives.  This switch was formerly called
 .BR \-W ;
 that name is still permitted for backwards compatibility.
+.TP
+.B \-Wfloat-equal
+Warn if floating-point numbers are compared for equality.  Due to rounding
+inherent in the computation of floating-point numbers, it is possible for two
+expressions that would compare mathematically equal to produce different
+floating-point values.  As a result, it is preferable to use something like the
+following to compare against a suitably small value, such as:
+.sp
+.RS 1i
+if (fabs(x - y) < 0.0001)
+.br
+	do_something();
+.RE
+.IP
+rather than
+.sp
+.RS 1i
+if (x == y)
+.br
+	do_something();
+.RE
+.IP
+as this is more robust.
+.TP
+.B \-Wformat
+Warn about strange uses of
+.BR printf ,
+.BR scanf ,
+.BR strftime ,
+and
+.BR strfmon
+format strings.  Strings marked with the
+.IR printf
+attribute are similarly flagged.
+.TP
+.B \-Wformat-contains-nul
+Warn if a format string contains a NUL byte.  As these are C-style strings, this
+will abruptly terminate the string.
 .TP
 .B \-Winline
 Warn if a function marked
