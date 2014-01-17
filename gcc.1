@@ -406,13 +406,21 @@ Optimize the code for size, not speed.
 .B \-shared
 Generate a shared library.  Generally this will be used with
 .BR \-fPIC .
-.SS "Options to Control Code Syntax"
+.SS "Options to Control Code Syntax and Interpretation"
 .TP
 .B \-fpermissive
 Be more lenient in accepting invalid code.  Since
 .B gcc
 tends to become stricter over time, especially with regard to C++ conformance,
 this option can be used to allow older code to compile temporarily.
+.TP
+.B \-fsigned\-bitfields
+.TP
+.B \-funsigned\-bitfields
+Controls whether bitfields of integral type but unspecified signedness (e.g.
+plain
+.B int )
+are signed or unsigned.
 .TP
 .B \-fsigned\-char
 .TP
