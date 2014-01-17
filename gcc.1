@@ -159,6 +159,18 @@ or one of
 or
 .BR gnu++0x
 for the corresponding standard with GNU extensions.
+.TP
+.B \-fobjc\-sjlj-exceptions
+.TP
+.B \-fsjlj-exceptions
+Enable exception handling using
+.BR setjmp (3)
+and
+.BR longjmp (3).
+(The former option is for Objective C and Objective C++ only.)  While extremely
+portable, this style of exception produces messier code and is less robust than
+the style available on most systems that uses a stack unwinder.  On systems
+where the stack unwinder is available, this option may not be.
 .SS "Options for Objective C and Objective C++"
 .TP
 .B \-fgnu\-runtime
