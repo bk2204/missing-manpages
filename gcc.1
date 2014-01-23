@@ -224,6 +224,11 @@ is cast to an
 This warning has no effect on architectures which do not require data to be
 aligned.
 .TP
+.B \-Wcast\-qual
+Warn when a cast removes qualifiers.  This does not apply to the C++
+.B const_cast
+syntax, but it does apply to both C-style casts and other C++ cast types.
+.TP
 .B \-Wconversion\-null
 Warn when attempting to convert NULL to or from a non-pointer type.  This is
 usually a mistake.
