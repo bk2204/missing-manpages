@@ -223,6 +223,14 @@ Warn about C code that is not also valid C++.  This is useful if the code in
 question is expected to function correctly when compiled with either a C or C++
 compiler.
 .TP
+.B \-Wc++0x\-compat
+.TP
+.B \-Wc++11\-compat
+Warn when the compiler detects code whose semantics differ between the ISO 1998
+C++ standard and the ISO 2011 C++ standard.  The
+.B \-Wc++0x\-compat
+spelling is deprecated.
+.TP
 .B \-Wcast\-align
 Warn when a pointer is cast to a type that requires increased alignment.  For
 example, warn when a
