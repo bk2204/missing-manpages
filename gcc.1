@@ -585,6 +585,21 @@ entering a function.  However, some operating systems have a bug where they do
 not clear the direction flag when calling signal handlers, so this option is
 provided to work around that bug.
 .TP
+.B \-mfpmath =387
+.TP
+.B \-mfpmath =sse
+Either use the i387 for all floating-point operations, or use limit its use to
+.B "long double" and use SSE2 scalar math for
+.BR float and
+.BR double .
+The former is the default on i386, and the latter is the default on amd64.  Note
+that all operations on the i387 are done in the same precision by default,
+potentially leading to double rounding and inaccurate results.  This option does
+not control the registers used to pass floating-point arguments; those are
+determined by the ABI.
+Code compiled with different values for this option cannot be combined.
+
+.TP
 .B \-mieee-fp
 Use IEEE math for floating-point comparisons.
 .TP
